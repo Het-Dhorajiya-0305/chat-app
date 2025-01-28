@@ -1,10 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { IoSendSharp } from "react-icons/io5";
 
 import './chat.css'
+import Sender, { Reciever } from './chatBox';
 
 function Chat() {
-    const [message,setMessage]=useState("");
+    const [message, setMessage] = useState("");
+    const [messageslist, setmessagelist] = useState([]);
+    const [flag, setflag] = useState(true);
+    const messagesEndRef = useRef(null);
+
+    function handleClick() {
+        const tempUser = flag ? "sender" : "receiver";
+        const msg = {
+            message: message,
+            user: tempUser
+        }
+        setflag(!flag);
+        setmessagelist([...messageslist, msg]);
+        setMessage("")
+    }
+    function onchange(e) {
+
+        setMessage(e.target.value);
+    }
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messageslist]);
+
+    console.log(messageslist);
     return (
         <div className="chat">
             <div className="left">
@@ -32,21 +57,45 @@ function Chat() {
                     <div className="chat-people-name">
                         <span>het dhorajiya</span>
                     </div>
-                    <div className="right-middle">
-                        <div className="messages">
-                            <div id="message" className='float-right'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum quo, ipsam officia quos, unde autem doloribus voluptatem doloremque libero sint earum perferendis repellat dignissimos id, quidem reprehenderit modi! Doloremque, sint?</div>
-                            <div id="message" >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem.</div>
-                            <div id="message">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem.</div>
-                            <div id="message">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem.</div>
-                            <div id="message">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem.</div>
-                            <div id="message">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem.</div>
-                            <div id="message">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem.</div>
-                            <div id="message">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem.</div> 
-                        </div>
-                        <div className="send">
-                            <button className="sendbtn"><IoSendSharp size={37} onClick={()=>setMessage("")}></IoSendSharp></button>
-                            <input type="text" name="" id="" className='input-send' value={message} onChange={(e)=>setMessage(e.target.value)}/>
-                        </div>
+                </div>
+                <div className="right-middle">
+                    <div className="messages">
+                            {
+                                messageslist.map((mes, index) => {
+                                    return mes.user === "sender" ? (
+                                        <Sender
+                                            key={index}
+                                            user={mes.user}
+                                            message={mes.message}
+                                        />
+                                    ) : (
+                                        <Reciever
+                                            key={index}
+                                            user={mes.user}
+                                            message={mes.message}
+                                        />
+                                    );
+                                })
+                            }
+                            <div ref={messagesEndRef} />
+                    </div>
+                    <div className="send">
+                        <button className="sendbtn">
+                            <IoSendSharp
+                                size={37}
+                                onClick={handleClick}
+                                className='send-btn'
+                            >
+                            </IoSendSharp>
+                        </button>
+                        <input
+                            type="text"
+                            className='input-send'
+                            value={message}
+                            onChange={(e) => {
+                                onchange(e);
+                            }}
+                        />
                     </div>
                 </div>
             </div>
