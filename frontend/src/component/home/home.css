@@ -41,7 +41,7 @@
     right: -30px;
     bottom: -80px;
 }
-form
+.main-form
 {
     height: 450px;
     width: 350px;
@@ -56,14 +56,14 @@ form
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 40px 35px;
 }
-form *{
+.main-form *{
     font-family: 'Poppins',sans-serif;
     color: #ffffff;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
 }
-form h1{
+.main-form h1{
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
@@ -76,7 +76,7 @@ label{
     font-size: 16px;
     font-weight: 500;
 }
-input{
+.main-form input{
     display: block;
     height: 50px;
     width: 100%;
@@ -90,7 +90,7 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-button{
+#submit-btn{
     margin-top: 40px;
     width: 100%;
     background-color: #ffffff;

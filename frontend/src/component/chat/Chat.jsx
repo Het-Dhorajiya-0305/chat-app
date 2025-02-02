@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './chat.css'
 
- 
+
 import io from 'socket.io-client'
 import URLSearchParams from '@ungap/url-search-params';
 import InfoBar from '../infobar/InfoBar.jsx';
@@ -16,7 +16,7 @@ function Chat() {
     const [name, setname] = useState("");
     const [room, setroom] = useState("");
     const [message, setMessage] = useState('');
-    const [users,setUsers]=useState('');
+    const [users, setUsers] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = "http://localhost:3000"
     useEffect(() => {
@@ -42,8 +42,8 @@ function Chat() {
     }, [ENDPOINT, window.location.search])
 
     useEffect(() => {
-        socket.on("message",(message)=>{
-            setMessages([...messages,message]);
+        socket.on("message", (message) => {
+            setMessages([...messages, message]);
 
         })
 

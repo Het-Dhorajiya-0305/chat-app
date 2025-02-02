@@ -15,7 +15,7 @@ function Home() {
                 <div className="shape1"></div>
                 <div className="shape2"></div>
             </div>
-            <form action="" method="get">
+            <form className='main-form' action="" method="get">
                 <h1>login page</h1>
                 <div>
                     <label htmlFor="name">Name</label>

@@ -5,7 +5,6 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import { addUser, getUser, getUserINRoom, removeUser } from './user.js';
 import router from './routes.js';
-import { text } from 'stream/consumers';
 
 const app = express();
 const server = http.createServer(app);
@@ -40,11 +39,10 @@ io.on('connection', (socket) => {
     })
 
     socket.on("sendMessage", (message, callback) => {
-        const user = getUser(socket.id);
-        console.log(user);
-        console.log(message)
 
-        io.to(user.room).emit("message", { user: user.name, text: message })
+        const user = getUser(socket.id);
+
+        io.to(user. room).emit("message", { user: user.name, text: message })
         callback();
     })
     socket.on("disconnect", () => {
@@ -63,5 +61,5 @@ app.use(express.static(path.resolve('./public')));
 
 
 server.listen(3000, () => {
-    console.log("server is started on port 3000");
+    console.log("server is started on port 7009");
 })
