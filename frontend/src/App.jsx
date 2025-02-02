@@ -1,8 +1,8 @@
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
-import Home from './component/Home';
-import Chat from './component/Chat';
+import Home from './component/home/Home.jsx';
+import Chat from './component/chat/Chat.jsx';
 
 function App() {
 
