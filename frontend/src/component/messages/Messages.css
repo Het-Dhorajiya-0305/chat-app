@@ -3,6 +3,11 @@
   overflow-y: auto;
   flex: auto;
   max-height: 20rem;
-  scrollbar-width: none;
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.messages::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
 }
 

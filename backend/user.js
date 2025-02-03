@@ -1,4 +1,4 @@
-const users = [];
+export let users = [];
 
 function addUser({ id, name, room }) {
     name = name.trim().toLowerCase();
@@ -19,11 +19,17 @@ function addUser({ id, name, room }) {
 }
 
 function removeUser(id) {
-    const index = users.find((user) => user.id == id)
-    if (index !== -1) {
-        return users.splice(index, 1)[0];
+    const newUsers = []
+    let removedUser;
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].id == id) {
+            removedUser = users[i]
+        } else {
+            newUsers.push(users[i])
+        }
     }
-
+    users = newUsers
+    return removedUser
 }
 
 const getUser = (id) => users.find((user) => user.id === id);

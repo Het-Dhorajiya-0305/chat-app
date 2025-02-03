@@ -16,6 +16,7 @@ function Chat() {
     const [name, setname] = useState("");
     const [room, setroom] = useState("");
     const [message, setMessage] = useState('');
+    const [socketState, setSocketState] = useState()
     const [users, setUsers] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = "http://localhost:3000"
@@ -27,19 +28,28 @@ function Chat() {
         setname(name);
         setroom(room);
         socket = io(ENDPOINT);
-        console.log(socket);
-
+        
         socket.emit('join', { name, room }, (error) => {
             if (error) {
                 alert(error);
             }
         });
 
+        socket.on("disconnect", () => {
+            socket = io(ENDPOINT)
+            socket.emit('join', {name, room}, (error) => {
+                if (error) {
+                    alert(error)
+                }
+            })
+        })
+
         return () => {
             socket.disconnect();
         }
 
     }, [ENDPOINT, window.location.search])
+
 
     useEffect(() => {
         socket.on("message", (message) => {
